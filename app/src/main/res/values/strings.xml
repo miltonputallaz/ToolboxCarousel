@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ToolboxCarousel</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="unable_video_resource">"Video no disponible!"</string>
+    <string name="please_wait">Espere por favor &#8230;</string>
+    <string name="retrieving_data">Obteniendo datos &#8230;</string>
+</resources>
