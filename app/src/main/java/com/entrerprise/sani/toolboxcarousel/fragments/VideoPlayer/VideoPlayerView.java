@@ -1,4 +1,4 @@
-package com.entrerprise.sani.toolboxcarousel.fragments;
+package com.entrerprise.sani.toolboxcarousel.fragments.VideoPlayer;
 
 import android.app.ProgressDialog;
 import android.media.MediaPlayer;
@@ -18,13 +18,14 @@ import android.widget.VideoView;
 import com.entrerprise.sani.toolboxcarousel.R;
 
 
-public class VideoPlayerFragment extends Fragment {
+public class VideoPlayerView extends Fragment implements VideoPlayerContract.View{
     private String videoUrl = null;
     private LinearLayout linearLayout = null;
     private OnFragmentInteractionListener mListener;
     private ProgressDialog progDailog;
+    private VideoPlayerPresenter videoPlayerPresenter;
 
-    public VideoPlayerFragment() {
+    public VideoPlayerView() {
         // Required empty public constructor
     }
 
@@ -32,7 +33,7 @@ public class VideoPlayerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        videoPlayerPresenter = new VideoPlayerPresenter(this);
     }
 
     @Override
@@ -44,16 +45,18 @@ public class VideoPlayerFragment extends Fragment {
         linearLayout =  (LinearLayout) v.findViewById(R.id.linear_layout_video);
         Bundle bundle = getArguments();
         videoUrl = bundle.getString("video_url");
-        initializeUI();
+        onViewIsReady();
         return v;
     }
 
-    private void initializeUI() {
+    @Override
+    public void onViewIsReady() {
         if (videoUrl!=null && !videoUrl.isEmpty())
             showVideoPlayer();
-         else
+        else
             showVideoUnabled();
     }
+
 
     private void showVideoPlayer(){
         showLoadingVideoDialog();
@@ -96,6 +99,7 @@ public class VideoPlayerFragment extends Fragment {
     private void dismissLoadingVideoDialog(){
         progDailog.dismiss();
     }
+
 
 
     /**

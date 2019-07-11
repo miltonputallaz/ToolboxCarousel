@@ -1,4 +1,4 @@
-package com.entrerprise.sani.toolboxcarousel.fragments;
+package com.entrerprise.sani.toolboxcarousel.fragments.Home;
 
 import android.content.Context;
 import android.net.Uri;
@@ -27,20 +27,20 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment {
+public class HomeView extends Fragment implements HomeContract.View {
 
-    private ArrayList<Carousel> carousels ;
     private LinearLayout linearLayout;
     private OnFragmentInteractionListener mListener;
+    private HomePresenter homePresenter;
 
-    public HomeFragment() {
+    public HomeView() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        carousels = GsonDeseralizer.deserealizeCarouselArray("Movies.json", getActivity());
+        homePresenter = new HomePresenter(this);
     }
 
     @Override
@@ -49,24 +49,16 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         linearLayout = (LinearLayout) view.findViewById(R.id.linear_layout);
-        initializeUI();
+        onViewIsReady();
         return view;
     }
 
-
-
-    private void initializeUI() {
-        for (int i=0; i < carousels.size(); i++){
-            Carousel carousel = carousels.get(i);
-            CarouselAdapter carouselAdapter = null;
-            if (carousel.getType().equals("poster")){
-                carouselAdapter  = new PosterCarouselAdapter(carousel.getItems(),getActivity());
-            } else {
-                carouselAdapter = new ThumbCarouselAdapter(carousel.getItems(),getActivity());
-            }
-            addNewCarousel(carouselAdapter);
+    @Override
+    public void onViewIsReady() {
+        ArrayList<CarouselAdapter> adaptersCollection = homePresenter.getCarouseAdapters();
+        for (int i = 0; i< adaptersCollection.size(); i++){
+            addNewCarousel(adaptersCollection.get(i));
         }
-
     }
 
     private void addNewCarousel(CarouselAdapter carouselAdapter){

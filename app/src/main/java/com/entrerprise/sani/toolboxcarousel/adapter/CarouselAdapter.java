@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.entrerprise.sani.toolboxcarousel.MainActivity;
 import com.entrerprise.sani.toolboxcarousel.R;
 import com.entrerprise.sani.toolboxcarousel.deserializers.Item;
-import com.entrerprise.sani.toolboxcarousel.fragments.VideoPlayerFragment;
+import com.entrerprise.sani.toolboxcarousel.fragments.VideoPlayer.VideoPlayerView;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -79,12 +79,12 @@ public abstract class CarouselAdapter extends RecyclerView.Adapter<CarouselAdapt
     private void goToVideoPlayer(String url){
         Bundle bundle = new Bundle();
         bundle.putString("video_url",url);
-        VideoPlayerFragment vpf = new VideoPlayerFragment();
-        vpf.setArguments(bundle);
+        VideoPlayerView videoPlayerView = new VideoPlayerView();
+        videoPlayerView.setArguments(bundle);
         MainActivity activity = ((MainActivity) this.context);
         FragmentManager fragmentManager= activity.getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fragment_container,vpf).addToBackStack(null);
+        transaction.replace(R.id.fragment_container,videoPlayerView).addToBackStack(null);
         transaction.commit();
     }
 }

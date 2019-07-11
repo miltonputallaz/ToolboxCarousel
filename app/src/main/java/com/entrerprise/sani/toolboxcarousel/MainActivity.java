@@ -5,18 +5,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.entrerprise.sani.toolboxcarousel.deserializers.Carousel;
-import com.entrerprise.sani.toolboxcarousel.fragments.HomeFragment;
-import com.entrerprise.sani.toolboxcarousel.utils.JsonUtils;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Array;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
+import com.entrerprise.sani.toolboxcarousel.fragments.Home.HomeView;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,10 +15,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        HomeFragment homeFragment = new HomeFragment();
+        HomeView homeView = new HomeView();
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.add(R.id.fragment_container,homeFragment).addToBackStack(null);
+        transaction.add(R.id.fragment_container,homeView).addToBackStack(null);
         transaction.commit();
 
     }
